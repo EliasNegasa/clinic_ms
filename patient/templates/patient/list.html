@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Patient List
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Patient Record</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Card No.</th>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>First visit Date</th>
+                    <th>Appointment</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for patient in patients %}
+                    <tr>
+                        <td><a href="{% url 'patient:patient_detail' patient.id %}">{{ patient.card_number }}</a></td>
+                        <td>
+                            <a href="{% url 'patient:patient_detail' patient.id %}" style="color: #000">{{ patient.first }} {{ patient.last }} {{ patient.middle }}</a>
+                        </td>
+                        <td>{{ patient.age }}</td>
+                        <td>{{ patient.gender }}</td>
+                        <td>{{ patient.phone }}</td>
+                        <td>{{ patient.created_date }}</td>
+                        <td>{{ patient.appointment }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Card No.</th>
+                    <th>Full Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>First visit Date</th>
+                    <th>Appointment</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+{% endblock %}

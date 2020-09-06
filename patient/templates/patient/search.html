@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block content %}
+    <div class="card">
+        {% if patients %}
+            <div class="card-header">
+                <h3 class="card-title">Search Result for "{{ search_term }}"</h3>
+            </div>
+        {% endif %}
+        <!-- /.card-header -->
+        <div class="card-body">
+            {% if patients %}
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Card No.</th>
+                        <th>Full Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>First visit Date</th>
+                        <th>Appointment</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for patient in patients %}
+                        <tr>
+                            <td><a href="{% url 'patient:patient_detail' patient.id %}">{{ patient.card_number }}</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'patient:patient_detail' patient.id %}"
+                                   style="color: #000">{{ patient.first }} {{ patient.last }} {{ patient.middle }}</a>
+                            </td>
+                            <td>{{ patient.age }}</td>
+                            <td>{{ patient.gender }}</td>
+                            <td>{{ patient.phone }}</td>
+                            <td>{{ patient.created_date }}</td>
+                            <td>{{ patient.appointment }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            {% else %}
+                <div class="callout callout-warning">
+                    <h5>No Search Result for "{{ search_term }}"</h5>
+
+                    <p>Search another term</p>
+                </div>
+            {% endif %}
+        </div>
+        <!-- /.card-body -->
+    </div>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Patient Detail
+{% endblock %}
+{% block content %}
+
+    <div class="wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 style="padding-bottom: 0.5rem;">Details</h1>
+                        <a href="{% url 'patient:patient_list' %}">
+                            <strong><i class="fas fa-angle-double-left"></i> Back to List</strong>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="breadcrumb float-sm-right">
+                            <a href="{% url 'patient:update' patient.id %}" class="btn btn-primary text-white"><i class="far fa-edit mr-2"></i>Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    {#                                    <span class="profile-user-img img-fluid img-circle">DA</span>#}
+                                </div>
+
+                                <h3 class="profile-username text-center">
+                                    <strong>{{ patient.first }} {{ patient.last }} {{ patient.middle }}</strong></h3>
+
+                                <p class="text-muted text-center">{{ patient.card_number }}</p>
+
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <strong><i class="fas fa-calendar-plus mr-1"></i>Age</strong>
+                                            </th>
+                                            <th>
+                                                <strong><i class="fas fa-venus-mars mr-1"></i>Gender</strong>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                <p class="text-muted">{{ patient.age }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-muted">{{ patient.gender }}</p>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <hr>
+
+                                    <strong><i class="fas fa-phone mr-2"></i>Phone</strong>
+
+                                    <p class="text-muted">{{ patient.phone }}</p>
+
+                                    <hr>
+
+                                    <strong><i class="fas fa-map-marker-alt mr-2"></i>Address</strong>
+
+                                    <p class="text-muted">{{ patient.address }}</p>
+
+                                    <hr>
+
+                                    <strong><i class="fas fa-calendar-alt mr-2"></i> First Visit Date</strong>
+
+                                    <p class="text-muted">{{ patient.created_date }}</p>
+
+                                    <hr>
+
+                                    <strong><i class="far fa-calendar-check mr-2"></i>Appointment</strong>
+
+                                    <p class="text-muted">{{ patient.appointment }}</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item nav-link">History</li>
+                                </ul>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="" id="activity">
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <span class="username" style="margin-left: 0"> <a href="#">Date</a> </span>
+                                            <span class="description" style="margin-left: 0">By Dr. Doctor Name</span>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum represents a long-held tradition for designers,
+                                            typographers and the like. Some people hate it and argue for
+                                            its demise, but others ignore the hate as they create awesome
+                                            tools to help create filler text for everyone from bacon lovers
+                                            to Charlie Sheen fans.
+                                        </p>
+
+                                    </div>
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <span class="username" style="margin-left: 0"><a href="#">Date</a></span>
+                                            <span class="description" style="margin-left: 0">By Dr. Doctor Name</span>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum represents a long-held tradition for designers,
+                                            typographers and the like. Some people hate it and argue for
+                                            its demise, but others ignore the hate as they create awesome
+                                            tools to help create filler text for everyone from bacon lovers
+                                            to Charlie Sheen fans.
+                                        </p>
+
+                                    </div>
+                                    <div class="post">
+                                        <div class="user-block">
+                                            <span class="username" style="margin-left: 0"><a href="#">Date</a></span>
+                                            <span class="description" style="margin-left: 0">By Dr. Doctor Name</span>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum represents a long-held tradition for designers,
+                                            typographers and the like. Some people hate it and argue for
+                                            its demise, but others ignore the hate as they create awesome
+                                            tools to help create filler text for everyone from bacon lovers
+                                            to Charlie Sheen fans.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

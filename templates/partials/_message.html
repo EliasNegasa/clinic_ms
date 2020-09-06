@@ -1,0 +1,22 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+
+{% if messages %}
+    {% for message in messages %}
+        <input id="messageHidden" type="hidden" value="{{ message }}">
+        <script>
+            $(document).ready(function () {
+                toastr.success($('#messageHidden').val())
+            });
+        </script>
+    {% endfor %}
+
+{% endif %}
+
+
+
+
