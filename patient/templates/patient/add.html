@@ -19,7 +19,7 @@
     </section>
 
     <section class="content">
-        <div class="col-md-6">
+        <div class="col-md-6 mx-auto">
             <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Personal Information</h3>
@@ -28,7 +28,7 @@
                     <form action="" method="post">
                         {% csrf_token %}
                         {{ form | crispy }}
-                        <input type="submit" value="Save" class="btn btn-success">
+                        <input type="submit" value="Save" class="btn btn-success w-100">
                     </form>
                 </div>
             </div>

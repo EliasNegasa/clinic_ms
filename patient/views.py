@@ -84,3 +84,7 @@ class PatientDeleteView(LoginRequiredMixin, DeleteView):
     model = Patient
     template_name = 'patient/delete.html'
     success_url = '../list/'
+
+
+def appointment(request):
+    return render(request, 'patient/appointment.html', {})
