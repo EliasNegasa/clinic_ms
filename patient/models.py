@@ -25,7 +25,7 @@ class Patient(models.Model):
     phone = models.IntegerField()
     address = models.CharField(max_length=64, default="")
     created_date = models.DateField(auto_now_add=True)
-    appointment = models.DateField(blank=True)
+    appointment = models.DateField(blank=True, null=True)
 
     created_by = models.ForeignKey(User, default=None, on_delete=models.PROTECT,
                                    related_name="creator")
