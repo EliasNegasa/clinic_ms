@@ -27,14 +27,14 @@
                         <!-- small box -->
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>230</h3>
+                                <h3>{% if base_patient_count != 0 %}{{base_patient_count}}{% else %} 0 {%endif%}</h3>
 
                                 <p>Patients</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{% url 'patient:patient_list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
@@ -42,14 +42,14 @@
                         <!-- small box -->
                         <div class="small-box bg-danger">
                             <div class="inner">
-                                <h3>65</h3>
+                                <h3>{% if base_appointment_today_count != 0 %}{{base_appointment_today_count}}{% else %} 0 {%endif%}</h3>
 
                                 <p>Today's Appointment</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{% url 'patient:appointment' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
 
                     </div>
@@ -58,14 +58,14 @@
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>50</h3>
+                                <h3>{{base_patient_today_count}}</h3>
 
                                 <p>Patient Added Today</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{% url 'patient:patient_list' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->

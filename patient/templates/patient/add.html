@@ -1,76 +1,101 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block title %} Add
+Patient {% endblock %} {% block content %}
 
-{% load crispy_forms_tags %}
-
-{% block title %}
-    Add Patient
-{% endblock %}
-
-{% block content %}
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Add Patient</h1>
-                </div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Add Patient</h1>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="content">
-        <div class="col-md-6 mx-auto">
-            <div class="card card-info">
+<section class="content">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="col-md-10 mx-auto">
+            <div class="card card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Personal Information</h3>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {{ form | crispy }}
-                        <input type="submit" value="Save" class="btn btn-success w-100">
-                    </form>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                {{ patient_form.first | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                {{ patient_form.sur | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                {{ patient_form.middle | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ patient_form.gender | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ patient_form.age | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ patient_form.phone | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-{#        <div class="col-md-6">#}
-{#            <div class="card card-info">#}
-{#                <div class="card-header">#}
-{#                    <h3 class="card-title">Personal Information</h3>#}
-{#                </div>#}
-{#                <div class="card-body">#}
-{#                    <div class="input-group mb-3">#}
-{#                        <div class="input-group-prepend">#}
-{#                            <span class="input-group-text"><i class="fas fa-user"></i></span>#}
-{#                        </div>#}
-{#                        <input type="text" class="form-control" placeholder="First Name">#}
-{#                    </div>#}
-{##}
-{#                    <div class="input-group mb-3">#}
-{#                        <div class="input-group-prepend">#}
-{#                            <span class="input-group-text"><i class="fas fa-user"></i></span>#}
-{#                        </div>#}
-{#                        <input type="text" class="form-control" placeholder="Last Name">#}
-{#                    </div>#}
-{##}
-{#                    <div class="input-group mb-3">#}
-{#                        <div class="input-group-prepend">#}
-{#                            <span class="input-group-text"><i class="fas fa-user"></i></span>#}
-{#                        </div>#}
-{#                        <input type="text" class="form-control" placeholder="Middle Name">#}
-{#                    </div>#}
-{##}
-{#                    <div class="input-group mb-3">#}
-{#                        <div class="input-group-prepend">#}
-{#                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>#}
-{#                        </div>#}
-{#                        <input type="email" class="form-control" placeholder="Email">#}
-{#                    </div>#}
-{##}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
 
-    </section>
+        <div class="col-md-10 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Address Information</h3>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ address_form.kebele | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ address_form.woreda | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                {{ address_form.sub_city | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <input type="submit" value="Save" class="btn btn-success w-25 mx-auto d-block" />
+        </div>
+    </form>
+
+</section>
 
 {% endblock %}

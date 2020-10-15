@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from import_export.admin import ImportExportModelAdmin
-from .models import Patient
+from .models import Patient, Address, Doctor, Appointment
 
-admin.site.site_header = 'Clinic Management System'
+admin.site.site_header = 'Dr. Haile Y/Berhane Internal Medicine Speciality Clinic'
 admin.site.site_title = 'Clinic Management System'
 admin.site.index_title = 'Clinic Management System'
 admin.empty_value_display = '**Empty**'
@@ -17,5 +17,8 @@ class PatientAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Patient, PatientAdmin)
+admin.site.register(Address)
+admin.site.register(Doctor)
+admin.site.register(Appointment)
 
 admin.site.unregister(Group)

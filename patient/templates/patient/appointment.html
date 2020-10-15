@@ -1,27 +1,144 @@
 {% extends 'base.html' %}
 
-{% load crispy_forms_tags %}
-
 {% block title %}
-    Add Patient
+    Appointments List
 {% endblock %}
 
 {% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Appointments</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="col-12">
+            <div class="card card-primary card-outline card-tabs">
+              <div class="card-header p-0 pt-1 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="false">Today's Appointments <span class="right badge badge-primary">{{base_appointment_today_count}}</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="true">Tomorrow's Appointments <span class="right badge badge-primary">{{base_appointment_tomorrow_count}}</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">Appointments with Date Range</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="custom-tabs-three-tabContent">
+                  <div class="tab-pane fade active show" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                     
+                     <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Card No.</th>
+                            <th>Full Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>First visit Date</th>
+                            <th>Action</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointment_today %}
+                                <tr>
+                                    <td><a href="{% url 'patient:patient_detail' appointment.patient.id %}">{{ appointment.patient.card_number }}</a></td>
+                                    <td>
+                                        <a href="{% url 'patient:patient_detail' appointment.patient.id %}" style="color: #000">{{ appointment.patient.first }} {% if appointment.patient.last %} {{ appointment.patient.last }} {% endif %}  {% if appointment.patient.middle %} {{ appointment.patient.middle }} {% endif %}</a>
+                                    </td>
+                                    <td>{% if appointment.patient.age %} {{ appointment.patient.age }} {% endif %}</td>
+                                    <td>{% if appointment.patient.gender %} {{ appointment.patient.gender }} {% endif %}</td>
+                                    <td>{% if appointment.patient.phone %} {{ appointment.patient.phone }} {% endif %}</td>
+                                    <td>{{ appointment.patient.created_date }}</td>
+                                    <td><button id="removeButton" type="button" data-toggle="modal" data-target="#modal-default" data-unique="{{appointment.patient.id}}" class="btn btn-danger text-white">
+                                            <i class="fas fa-trash-alt"></i> Remove
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                     </table>
 
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Today's Appointments</h1>
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                     <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Card No.</th>
+                            <th>Full Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Phone</th>
+                            <th>First visit Date</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointment_tomorrow %}
+                                <tr>
+                                    <td><a href="{% url 'patient:patient_detail' appointment.patient.id %}">{{ appointment.patient.card_number }}</a></td>
+                                    <td>
+                                        <a href="{% url 'patient:patient_detail' appointment.patient.id %}" style="color: #000">{{ appointment.patient.first }} {% if appointment.patient.last %} {{ appointment.patient.last }} {% endif %}  {% if appointment.patient.middle %} {{ appointment.patient.middle }} {% endif %}</a>
+                                    </td>
+                                    <td>{% if appointment.patient.age %} {{ appointment.patient.age }} {% endif %}</td>
+                                    <td>{% if appointment.patient.gender %} {{ appointment.patient.gender }} {% endif %}</td>
+                                    <td>{% if appointment.patient.phone %} {{ appointment.patient.phone }} {% endif %}</td>
+                                    <td>{{ appointment.patient.created_date }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                     </table>
+                   </div>
+                  <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+                    Appointments with Date Range
+                    <div class="form-group col-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control float-right" id="reservation">
+                            <button type="button" class="btn btn-warning ml-4">Filter</button>
+                        </div>
+                  <!-- /.input group -->
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <!-- /.card -->
             </div>
+          </div>
         </div>
-    </section>
-
-    <section class="content">
-        <div class="col-md-6">
-            No Appointments
+        <!-- /.card-body -->
+    </div>
+    <div class="modal fade show" id="modal-default" style="display: none; padding-right: 17px;" aria-modal="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Confirmation</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <a href="" type="button" class="btn btn-danger">Delete</a>
+            </div>
+          </div>
+          <!-- /.modal-content -->
         </div>
-    </section>
+    </div>
 
+    
 {% endblock %}
+

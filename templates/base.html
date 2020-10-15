@@ -15,6 +15,27 @@
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <script defer src="{% static 'js/appointment-script.js' %}"></script>
+
+    <script defer type="text/javascript">
+        getToken = (name) => {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const csrftoken = getToken('csrftoken');
+    </script>
+    
 </head>
 <body class="hold-transition sidebar-mini">
 {% include 'partials/_message.html' %}
@@ -66,13 +87,13 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
             <img src="{% static 'images/AdminLTELogo.png' %}" alt="AdminLTE Logo"
                  class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">Clinic MS</span>
+            <span class="brand-text font-weight-light">Dr. Haile Y/Berhane Internal Medicine Speciality Clinic</span>
         </a>
 
         <!-- Sidebar -->
@@ -87,11 +108,13 @@
                             <i class="nav-icon fas fa-home"></i>
                             <p>
                                 Dashboard
-                                <span class="right badge badge-danger">20</span>
+                                {% comment %} <span class="right badge badge-danger">
+                                {{base_patient_count}} + {{base_patient_today_count}} + {{base_appointment_today_count}}
+                                </span> {% endcomment %}
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item has-treeview menu-open">
+                    <li class="nav-item has-treview menu-open">
                         <a href="#" class="nav-link active">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
@@ -99,16 +122,16 @@
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        <ul class="nav nav-treview">
                             <li class="nav-item">
-                                <a href="{% url 'patient:patient_list' %}" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="{% url 'patient:patient_list' %}" class="nav-link">
+                                    <i class="fas fa-list nav-icon"></i>
                                     <p>Patient List</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'patient:add' %}" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-user-plus nav-icon"></i>
                                     <p>Add Patient</p>
                                 </a>
                             </li>
@@ -119,7 +142,7 @@
                             <i class="nav-icon fas fa-th"></i>
                             <p>
                                 Appointments
-                                <span class="right badge badge-danger">20</span>
+                                <span class="right badge badge-danger">{{base_appointment_today_count}}</span>
                             </p>
                         </a>
                     </li>
@@ -148,5 +171,15 @@
 <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
 <script src="{% static 'js/adminlte.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script defer>
+    $('#reservation').daterangepicker();
+</script>
+
 </body>
 </html>
