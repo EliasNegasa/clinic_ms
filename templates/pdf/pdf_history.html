@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Patient [name] History and Physical Examination</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #aeaeae; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+            .history-info-div table {
+                border-collapse: collapse;
+            }
+            .history-info-div td, .history-info-div th {
+                border: solid 1px #aeaeae; 
+                padding: 6px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+        <p style="text-align: right;">Date: {{date}}</p>
+            <div class='header'>
+                <p class='title'><b>Dr. Haile Y/Berhane Internal Medicine Speciality Clinic</b></p>
+            </div>
+        <div>
+        <div class="personal-info-div">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class='details'>
+                                <strong>Patient Name:</strong> {{patient.firstname}} {{patient.surname}} {{patient.middlename}}<br/>
+                                <strong>Age:</strong> {{patient.age}} <br/>
+                                <strong>Gender: </strong> {{patient.gender}} <br>
+                                <strong>Phone: </strong> {{patient.phone}}
+                            </div>
+                        </td>
+                        <td>
+                            <div class='details'>
+                                <strong>Kebele:</strong> {{patient.kebele}} <br>
+                                <strong>Woreda:</strong> {{patient.woreda}} <br/>
+                                <strong>subcity:</strong> {{patient.sub_city}} <br/>                
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>   
+        </div>
+        <hr class='hrItem' />
+        <div class="history-info-div">
+            <table>
+            <thead>
+                <tr>
+                    <th style="width: 140px;">Date</th>
+                    <th>History and Physical Examination</th>
+                </tr>
+            </thead>
+                <tbody>
+                    {% for history in histories %}
+                        <tr>
+                            <td>
+                                {{history.date}}
+                            </td>
+                            <td>
+                                {{history.history}}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>   
+        </div>
+    </div>
+    </body>
+</html>

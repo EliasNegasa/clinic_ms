@@ -2,100 +2,100 @@
 Patient {% endblock %} {% block content %}
 
 <section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Add Patient</h1>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Add Patient</h1>
+      </div>
     </div>
+  </div>
 </section>
 
 <section class="content">
-    <form action="" method="post">
-        {% csrf_token %}
-        <div class="col-md-10 mx-auto">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Personal Information</h3>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div style="display: flex; justify-content: space-between">
+      <div class="col-md-6 mx-auto">
+        <div class="card card-primary" style="min-height: 350px">
+          <div class="card-header">
+            <h3 class="card-title">Personal Information</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  {{ patient_form.firstname | as_crispy_field }}
                 </div>
-                <div class="card-body">
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                {{ patient_form.first | as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                {{ patient_form.sur | as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                {{ patient_form.middle | as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{ patient_form.gender | as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{ patient_form.age | as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                {{ patient_form.phone | as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  {{ patient_form.surname | as_crispy_field }}
                 </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  {{ patient_form.middlename | as_crispy_field }}
+                </div>
+              </div>
             </div>
-        </div>
-
-        <div class="col-md-10 mx-auto">
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Address Information</h3>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  {{ patient_form.gender | as_crispy_field }}
                 </div>
-                <div class="card-body">
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{ address_form.kebele | as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{ address_form.woreda | as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                {{ address_form.sub_city | as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  {{ patient_form.age | as_crispy_field }}
                 </div>
+              </div>
             </div>
-            <input type="submit" value="Save" class="btn btn-success w-25 mx-auto d-block" />
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  {{ patient_form.phone | as_crispy_field }}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
 
+      <div class="col-md-6 mx-auto">
+        <div class="card card-primary" style="min-height: 350px">
+          <div class="card-header">
+            <h3 class="card-title">Address Information</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  {{ patient_form.kebele | as_crispy_field }}
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  {{ patient_form.woreda | as_crispy_field }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  {{ patient_form.sub_city | as_crispy_field }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ml-auto w-25 text-right">
+      <a href="{% url 'patient:patient_list' %}" type="button" class="btn btn-outline-secondary">Cancel</a>
+      <input type="submit" value="Save" class="btn btn-success" />
+    </div>
+  </form>
 </section>
 
 {% endblock %}

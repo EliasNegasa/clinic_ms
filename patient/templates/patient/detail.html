@@ -4,7 +4,7 @@
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <h1 style="padding-bottom: 0.5rem">Details</h1>
           <a href="{% url 'patient:patient_list' %}">
             <strong
@@ -12,11 +12,11 @@
             >
           </a>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-8">
           <div class="breadcrumb float-sm-right">
             <button
               type="button"
-              class="btn btn-warning text-white mr-4"
+              class="btn btn-sm btn-warning text-white mr-4"
               data-toggle="modal"
               data-target="#modal-default"
             >
@@ -24,8 +24,19 @@
             </button>
             <a
               href="{% url 'patient:update' patient.id %}"
-              class="btn btn-primary text-white"
+              class="btn btn-sm btn-primary text-white"
               ><i class="far fa-edit mr-2"></i>Edit</a
+            >
+            <a
+              href="{% url 'patient:history' patient.id %}"
+              class="btn btn-sm btn-success text-white ml-3"
+              >Add History & Examination</a
+            >
+            <a
+              href="{% url 'patient:pdf_history' patient.id %}"
+              target="_blank"
+              class="btn btn-sm btn-outline-info ml-3"
+              >Print</a
             >
           </div>
         </div>
@@ -44,7 +55,8 @@
 
               <h3 class="profile-username text-center">
                 <strong
-                  >{{ patient.first }} {{ patient.last }} {{ patient.middle }}</strong
+                  >{{ patient.firstname }} {{ patient.surname }} 
+                  {{ patient.middlename }}</strong
                 >
               </h3>
 
@@ -69,10 +81,10 @@
                   <tbody>
                     <tr>
                       <td>
-                        <p class="text-muted">{{ patient.age }}</p>
+                        <p class="text-muted ml-3">{{ patient.age }}</p>
                       </td>
                       <td>
-                        <p class="text-muted">{{ patient.gender }}</p>
+                        <p class="text-muted ml-3">{{ patient.gender }}</p>
                       </td>
                     </tr>
                   </tbody>
@@ -82,7 +94,7 @@
 
                 <strong><i class="fas fa-phone mr-2"></i>Phone</strong>
 
-                <p class="text-muted">{{ patient.phone }}</p>
+                <p class="text-muted ml-3">{{ patient.phone }}</p>
 
                 <hr />
 
@@ -90,7 +102,9 @@
                   ><i class="fas fa-map-marker-alt mr-2"></i>Address</strong
                 >
 
-                <p class="text-muted">{{ patient.address }}</p>
+                <p class="text-muted ml-3">Kebele: {{ patient.kebele }}</p>
+                <p class="text-muted ml-3">Woreda: {{ patient.woreda }}</p>
+                <p class="text-muted ml-3">Subcity: {{ patient.sub_city }}</p>
 
                 <hr />
 
@@ -99,120 +113,127 @@
                   Date</strong
                 >
 
-                <p class="text-muted">{{ patient.created_date }}</p>
+                <p class="text-muted ml-3">{{ patient.created_date }}</p>
 
-                {% comment %}
+                
                 <hr />
-
-                <strong
-                  ><i class="far fa-calendar-check mr-2"></i>Appointment</strong
-                >
-
-                <p class="text-muted">{{ patient.appointment }}</p>
-                {% endcomment %}
+       
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-md-8">
-          <div class="card">
+        <div class="col-md-4">
+          <div class="card history-display">
             <div class="card-header p-2">
               <ul class="nav nav-pills">
-                <li class="nav-item nav-link">History</li>
+                <li class="nav-item nav-link">History & Examination</li>
               </ul>
             </div>
             <div class="card-body">
               <div class="" id="activity">
+               {% for history in histories %}
                 <div class="post">
+                <input type="hidden" value="{{history.id}}"/>
+                  <div class="d-flex">
                   <div class="user-block">
-                    <span class="username" style="margin-left: 0">
-                      <a href="#">Date</a>
-                    </span>
-                    <span class="description" style="margin-left: 0"
-                      >By Dr. Doctor Name</span
-                    >
-                  </div>
-                  <p>
-                    Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create
-                    awesome tools to help create filler text for everyone from
-                    bacon lovers to Charlie Sheen fans.
-                  </p>
-                </div>
-                <div class="post">
-                  <div class="user-block">
-                    <span class="username" style="margin-left: 0"
-                      ><a href="#">Date</a></span
+                    <span class="username text-primary" style="margin-left: 0"
+                      >{{history.date}}</span
                     >
                     <span class="description" style="margin-left: 0"
-                      >By Dr. Doctor Name</span
+                      >By Dr. {{history.doctor.firstname}} {{history.doctor.surname}}</span
                     >
                   </div>
-                  <p>
-                    Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create
-                    awesome tools to help create filler text for everyone from
-                    bacon lovers to Charlie Sheen fans.
-                  </p>
-                </div>
-                <div class="post">
-                  <div class="user-block">
-                    <span class="username" style="margin-left: 0"
-                      ><a href="#">Date</a></span
-                    >
-                    <span class="description" style="margin-left: 0"
-                      >By Dr. Doctor Name</span
-                    >
+                  <a href="{% url 'patient:history_update' history.id %}"><i class="fas fa-pencil-alt text-secondary sm"></i></a>
                   </div>
                   <p>
-                    Lorem ipsum represents a long-held tradition for designers,
-                    typographers and the like. Some people hate it and argue for
-                    its demise, but others ignore the hate as they create
-                    awesome tools to help create filler text for everyone from
-                    bacon lovers to Charlie Sheen fans.
+                    {{history.history}}
                   </p>
                 </div>
+                {% endfor %}
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card appointment-display">
+              <div class="card-header p-2">
+              <ul class="nav nav-pills">
+                <li class="nav-item nav-link">Appointments</li>
+              </ul>
+            </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Assigned Doctor</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for appointment in appointments %}
+                  <tr>
+                      <td>{{ appointment.date}}</td>
+                      <td>{{appointment.doctor}}</td>
+                      <td>
+                        <a href="{% url 'patient:appointment_update' appointment.id %}"><i class="fas fa-pencil-alt text-secondary sm"></i></a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                    
+                    
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
         </div>
       </div>
     </div>
   </section>
 </div>
 
-  <div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Book Appointment</h4>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="" return=false>
-           {% csrf_token %}
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Book Appointment</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" return="false">
+        {% csrf_token %}
         <div class="modal-body">
-          
-
           <p>
-            <strong>Patient Name: </strong> {{ patient.first }} {{ patient.last }}
+            <strong>Card Number: </strong> {{ patient.card_number }} <br>
+            <strong>Patient Name: </strong> {{ patient.firstname }} {{ patient.surname}}
           </p>
           <p>
-            Date: 
+            Date:
             <input
               type="date"
               class="form-control datetimepicker-input"
               id="appointment_date"
             />
+          </p>
+          <p>
+            Assign Doctor:
+            <select
+              class="form-control"
+              name="doctor"
+              id="assignedDoctor">
+              {% for doctor in doctors %}
+                <option value="{{doctor.id}}">{{doctor.firstname}} {{doctor.surname}}</option>
+              {% endfor %}%}
+            </select>
           </p>
         </div>
         <div class="modal-footer justify-content-between">
@@ -222,12 +243,13 @@
           <a
             data-appointment="{{ patient.id }}"
             data-action="appointment"
-            class="btn btn-success select-appointment text-white" data-dismiss="modal"
+            class="btn btn-success select-appointment text-white"
+            data-dismiss="modal"
             >Save</a
           >
         </div>
-        </form>
-      </div>
+      </form>
     </div>
   </div>
+</div>
 {% endblock %}

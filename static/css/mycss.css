@@ -1,0 +1,35 @@
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.card.history-display,
+.card.appointment-display {
+  height: 100vh;
+  overflow-x: scroll;
+}
+
+.admin-link {
+  bottom: 0;
+  position: absolute;
+  font-size: 12px;
+  display: block;
+  background: #1d2125;
+  width: 100%;
+  color: #f8f9fa;
+}

@@ -38,7 +38,7 @@
                             <th>Age</th>
                             <th>Gender</th>
                             <th>Phone</th>
-                            <th>First visit Date</th>
+                            <th>Assigned Doctor</th>
                             <th>Action</th>
                             
                         </tr>
@@ -48,15 +48,16 @@
                                 <tr>
                                     <td><a href="{% url 'patient:patient_detail' appointment.patient.id %}">{{ appointment.patient.card_number }}</a></td>
                                     <td>
-                                        <a href="{% url 'patient:patient_detail' appointment.patient.id %}" style="color: #000">{{ appointment.patient.first }} {% if appointment.patient.last %} {{ appointment.patient.last }} {% endif %}  {% if appointment.patient.middle %} {{ appointment.patient.middle }} {% endif %}</a>
+                                        <a href="{% url 'patient:patient_detail' appointment.patient.id %}" style="color: #000">{{ appointment.patient.firstname }} {% if appointment.patient.surname %} {{ appointment.patient.surname }} {% endif %}  {% if appointment.patient.middlename %} {{ appointment.patient.middlename }} {% endif %}</a>
                                     </td>
                                     <td>{% if appointment.patient.age %} {{ appointment.patient.age }} {% endif %}</td>
                                     <td>{% if appointment.patient.gender %} {{ appointment.patient.gender }} {% endif %}</td>
                                     <td>{% if appointment.patient.phone %} {{ appointment.patient.phone }} {% endif %}</td>
-                                    <td>{{ appointment.patient.created_date }}</td>
-                                    <td><button id="removeButton" type="button" data-toggle="modal" data-target="#modal-default" data-unique="{{appointment.patient.id}}" class="btn btn-danger text-white">
-                                            <i class="fas fa-trash-alt"></i> Remove
-                                        </button>
+                                    <td>{{ appointment.doctor }}</td>
+                                    <td>
+                                    <button onclick="getDeletedData(this);" data-appId="{{ appointment.id }}" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#modal-default">
+                                      <i class="fas fa-trash-alt"></i>
+                                    </button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -74,7 +75,7 @@
                             <th>Age</th>
                             <th>Gender</th>
                             <th>Phone</th>
-                            <th>First visit Date</th>
+                            <th>Assigned Doctor</th>
                             
                         </tr>
                         </thead>
@@ -83,12 +84,17 @@
                                 <tr>
                                     <td><a href="{% url 'patient:patient_detail' appointment.patient.id %}">{{ appointment.patient.card_number }}</a></td>
                                     <td>
-                                        <a href="{% url 'patient:patient_detail' appointment.patient.id %}" style="color: #000">{{ appointment.patient.first }} {% if appointment.patient.last %} {{ appointment.patient.last }} {% endif %}  {% if appointment.patient.middle %} {{ appointment.patient.middle }} {% endif %}</a>
+                                        <a href="{% url 'patient:patient_detail' appointment.patient.id %}" style="color: #000">{{ appointment.patient.firstname }} {% if appointment.patient.surname %} {{ appointment.patient.surname }} {% endif %}  {% if appointment.patient.middlename %} {{ appointment.patient.middlename }} {% endif %}</a>
                                     </td>
                                     <td>{% if appointment.patient.age %} {{ appointment.patient.age }} {% endif %}</td>
                                     <td>{% if appointment.patient.gender %} {{ appointment.patient.gender }} {% endif %}</td>
                                     <td>{% if appointment.patient.phone %} {{ appointment.patient.phone }} {% endif %}</td>
-                                    <td>{{ appointment.patient.created_date }}</td>
+                                    <td>{{ appointment.doctor }}</td>
+                                    <td>
+                                    <button onclick="getDeletedData(this);" data-appId="{{ appointment.id }}" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#modal-default">
+                                      <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -118,27 +124,46 @@
         </div>
         <!-- /.card-body -->
     </div>
-    <div class="modal fade show" id="modal-default" style="display: none; padding-right: 17px;" aria-modal="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Confirmation</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Are you sure?</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <a href="" type="button" class="btn btn-danger">Delete</a>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-    </div>
 
-    
+
+    <div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="" return="false">
+        {% csrf_token %}
+        <div class="modal-body">
+          
+          <p>
+            Are You Sure?
+          </p>
+          
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+          <a
+            id="appDeleteBtn"
+            data-action="delete"
+            class="btn btn-danger delete-appointment text-white"
+            data-dismiss="modal"
+            >Delete</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
