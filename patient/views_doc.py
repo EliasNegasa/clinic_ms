@@ -16,7 +16,7 @@ class DoctorListView(LoginRequiredMixin, ListView):
     template_name = 'doctor/doc_list.html'
     model = Doctor
     context_object_name = 'doctors'
-    paginate_by = 4
+    paginate_by = 25
     
 
 @login_required()

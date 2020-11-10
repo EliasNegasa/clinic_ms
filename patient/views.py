@@ -25,7 +25,7 @@ class PatientListView(LoginRequiredMixin, ListView):
     template_name = 'patient/list.html'
     model = Patient
     context_object_name = 'patients'
-    paginate_by = 4
+    paginate_by = 100
 
 
 class PatientDetailView(LoginRequiredMixin, DetailView):
